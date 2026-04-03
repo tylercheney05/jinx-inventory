@@ -72,6 +72,12 @@ const Navbar = () => {
               >
                 Restock
               </Link>
+              <Link
+                to="/removal"
+                className="text-sm font-medium text-jinxBlue px-3 py-1 rounded-md hover:bg-gray-100 transition-colors"
+              >
+                Removal
+              </Link>
               <Link to="/settings" aria-label="Settings" className="p-2 rounded-md hover:bg-gray-100 transition-colors">
                 <Settings className="text-jinxBlue" size={22} />
               </Link>
