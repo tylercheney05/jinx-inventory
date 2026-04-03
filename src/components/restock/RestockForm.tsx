@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { LoadingIcon } from '@/components/Icons'
+import QuantityField from '@/components/shared/QuantityField'
 import type { InventoryItem } from '@/types/inventoryItems'
 
 const formSchema = z.object({
@@ -68,38 +69,7 @@ const RestockForm = ({ item, onSuccess }: RestockFormProps) => {
         <FormField
           control={form.control}
           name="quantity"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Quantity</FormLabel>
-              <FormControl>
-                <div className="flex items-center">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="rounded-r-none border-r-0 px-4 py-2 text-lg"
-                    onClick={() => field.onChange(Math.max(1, (field.value || 1) - 1))}
-                  >
-                    −
-                  </Button>
-                  <Input
-                    {...field}
-                    type="number"
-                    min={1}
-                    className="rounded-none text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  />
-                  <Button
-                    type="button"
-                    variant="outline"
-                    className="rounded-l-none border-l-0 px-4 py-2 text-lg"
-                    onClick={() => field.onChange((field.value || 0) + 1)}
-                  >
-                    +
-                  </Button>
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => <QuantityField field={field} />}
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

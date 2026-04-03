@@ -2,7 +2,7 @@ import { useGetInventoryCategoriesListQuery } from '@/services/inventoryCategori
 import ResourceList from '@/components/shared/ResourceList'
 
 const InventoryCategoryList = () => {
-  const { data, isLoading, isError } = useGetInventoryCategoriesListQuery()
+  const { data, isLoading, isError } = useGetInventoryCategoriesListQuery(undefined, { refetchOnMountOrArgChange: true })
 
   return (
     <ResourceList

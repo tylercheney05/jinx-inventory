@@ -5,11 +5,12 @@ interface CategorySidebarProps {
   selectedCategoryIds: Set<number>
   onToggle: (id: number) => void
   onSelectAll: () => void
+  activeColor?: string
 }
 
-const CategorySidebar = ({ categories, selectedCategoryIds, onToggle, onSelectAll }: CategorySidebarProps) => {
+const CategorySidebar = ({ categories, selectedCategoryIds, onToggle, onSelectAll, activeColor = 'bg-jinxBlue' }: CategorySidebarProps) => {
   const btnBase = 'text-sm font-medium rounded-full px-4 py-1.5 transition-colors whitespace-nowrap'
-  const activeClass = 'bg-jinxBlue text-white'
+  const activeClass = `${activeColor} text-white`
   const inactiveClass = 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-100'
 
   const allSelected = selectedCategoryIds.size === 0

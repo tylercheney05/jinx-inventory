@@ -21,7 +21,7 @@ const formSchema = z.object({
 
 const AddInventoryItemForm = () => {
   const [createInventoryItem, result] = useCreateInventoryItemMutation()
-  const { data: categories } = useGetInventoryCategoriesListQuery()
+  const { data: categories } = useGetInventoryCategoriesListQuery(undefined, { refetchOnMountOrArgChange: true })
 
   const form = useForm<z.infer<typeof formSchema>>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
