@@ -1,0 +1,57 @@
+import { useIsMobile } from '@/hooks/use-mobile'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+} from '@/components/ui/drawer'
+import RestockForm from '@/components/restock/RestockForm'
+import type { InventoryItem } from '@/types/inventoryItems'
+
+interface RestockModalProps {
+  item: InventoryItem | null
+  onClose: () => void
+}
+
+const RestockModal = ({ item, onClose }: RestockModalProps) => {
+  const isMobile = useIsMobile()
+  const open = !!item
+
+  if (isMobile) {
+    return (
+      <Drawer open={open} onOpenChange={(o) => !o && onClose()}>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>Restock</DrawerTitle>
+            <DrawerDescription>{item?.name}</DrawerDescription>
+          </DrawerHeader>
+          <div className="px-4 pb-4">
+            {item && <RestockForm item={item} onSuccess={onClose} />}
+          </div>
+        </DrawerContent>
+      </Drawer>
+    )
+  }
+
+  return (
+    <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Restock</DialogTitle>
+          <DialogDescription>{item?.name}</DialogDescription>
+        </DialogHeader>
+        {item && <RestockForm item={item} onSuccess={onClose} />}
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+export default RestockModal
