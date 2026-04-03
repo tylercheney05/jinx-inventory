@@ -21,7 +21,7 @@ app.use(
 app.use(express.static(path.join(__dirname, 'dist')))
 
 // SPA fallback — return index.html for all non-asset routes
-app.get('*', (_req, res) => {
+app.get('/{*path}', (_req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
 
