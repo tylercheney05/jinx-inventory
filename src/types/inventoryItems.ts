@@ -11,6 +11,9 @@ export interface InventoryItem {
   order_cost: string
   order_count: number
   on_hand_qty: number
+  in_transit_qty: number
+  min_order_qty: number
+  reorder_status: 'ok' | 'do_not_order' | 'ordered' | 'reorder' | null
 }
 
 export interface CreateInventoryItem {

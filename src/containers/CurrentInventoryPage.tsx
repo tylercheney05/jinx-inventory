@@ -34,9 +34,10 @@ const CurrentInventoryPage = () => {
 
   return (
     <Layout>
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <h1 className="text-2xl font-bold text-gray-800 my-6">Current Inventory</h1>
 
+        {/* Mobile: sidebar on top */}
         <div className="md:hidden mb-4">
           <CategorySidebar
             categories={categories}
@@ -46,17 +47,45 @@ const CurrentInventoryPage = () => {
           />
         </div>
 
-        {isLoading ? (
-          <div className="flex items-center justify-center py-12">
-            <LoadingIcon />
+        {/* Desktop: sidebar + table side by side */}
+        <div className="hidden md:flex md:gap-6">
+          <div className="shrink-0">
+            <CategorySidebar
+              categories={categories}
+              selectedCategoryIds={selectedCategoryIds}
+              onToggle={handleToggle}
+              onSelectAll={handleSelectAll}
+            />
           </div>
-        ) : isError ? (
-          <p className="text-sm text-destructive">Failed to load inventory items.</p>
-        ) : filteredItems.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No inventory items found.</p>
-        ) : (
-          <InventoryTable items={filteredItems} />
-        )}
+          <div className="min-w-0 flex-1">
+            {isLoading ? (
+              <div className="flex items-center justify-center py-12">
+                <LoadingIcon />
+              </div>
+            ) : isError ? (
+              <p className="text-sm text-destructive">Failed to load inventory items.</p>
+            ) : filteredItems.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No inventory items found.</p>
+            ) : (
+              <InventoryTable items={filteredItems} />
+            )}
+          </div>
+        </div>
+
+        {/* Mobile: table below sidebar */}
+        <div className="md:hidden">
+          {isLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <LoadingIcon />
+            </div>
+          ) : isError ? (
+            <p className="text-sm text-destructive">Failed to load inventory items.</p>
+          ) : filteredItems.length === 0 ? (
+            <p className="text-sm text-muted-foreground">No inventory items found.</p>
+          ) : (
+            <InventoryTable items={filteredItems} />
+          )}
+        </div>
       </div>
     </Layout>
   )
