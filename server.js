@@ -8,12 +8,13 @@ const app = express()
 const PORT = process.env.PORT || 3000
 const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:8000'
 
-// Proxy /api/* to Django backend
+// Proxy /api/* to Django backend (pathRewrite preserves /api prefix that Express strips)
 app.use(
   '/api',
   createProxyMiddleware({
     target: BACKEND_URL,
     changeOrigin: true,
+    pathRewrite: { '^/': '/api/' },
   })
 )
 
