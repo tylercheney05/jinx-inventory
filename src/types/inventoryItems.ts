@@ -10,6 +10,7 @@ export interface InventoryItem {
   reorder_point: number
   order_cost: string
   order_count: number
+  on_hand_qty: number
 }
 
 export interface CreateInventoryItem {
