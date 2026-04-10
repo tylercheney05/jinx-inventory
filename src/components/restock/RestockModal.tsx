@@ -28,7 +28,7 @@ const RestockModal = ({ item, onClose }: RestockModalProps) => {
   if (isMobile) {
     return (
       <Drawer open={open} onOpenChange={(o) => !o && onClose()}>
-        <DrawerContent>
+        <DrawerContent className="h-full max-h-full rounded-none">
           <DrawerHeader>
             <DrawerTitle>Restock</DrawerTitle>
             <DrawerDescription>{item?.name}</DrawerDescription>

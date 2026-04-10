@@ -39,6 +39,7 @@ const QuantityField = ({ field, className, inputClassName }: QuantityFieldProps)
               type="number"
               min={1}
               readOnly={isMobile}
+              tabIndex={isMobile ? -1 : undefined}
               className={cn(
                 "rounded-none text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
                 inputClassName

@@ -108,13 +108,7 @@ const RestockForm = ({ item, onSuccess }: RestockFormProps) => {
             <FormItem>
               <FormLabel>Note <span className="text-muted-foreground font-normal">(optional)</span></FormLabel>
               <FormControl>
-                <Input
-                  {...field}
-                  placeholder="Add a note..."
-                  onFocus={(e) => {
-                    setTimeout(() => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300)
-                  }}
-                />
+                <Input {...field} placeholder="Add a note..." />
               </FormControl>
               <FormMessage />
             </FormItem>
