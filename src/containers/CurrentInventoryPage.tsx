@@ -35,7 +35,7 @@ const CurrentInventoryPage = () => {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl font-bold text-gray-800 my-6">Current Inventory</h1>
+        <h1 className="text-2xl font-bold text-[#0B1220] my-6">Current Inventory</h1>
 
         {/* Mobile: sidebar on top */}
         <div className="md:hidden mb-4">

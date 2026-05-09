@@ -22,7 +22,7 @@ const InventoryItemCard = ({ item, footer }: InventoryItemCardProps) => (
     <CardContent className="pt-6 space-y-1">
       <p className="font-semibold text-base leading-tight">{item.name}</p>
       <p className="text-sm text-muted-foreground">{item.category.name}</p>
-      <div className="pt-2 space-y-0.5 text-sm text-gray-600">
+      <div className="pt-2 space-y-0.5 text-sm text-[#5B6470]">
         <p>SKU: {item.sku}</p>
         <p>Size: {item.unit_size} {item.uom}</p>
         <p>Reorder at: {item.reorder_point}</p>

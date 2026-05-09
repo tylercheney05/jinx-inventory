@@ -38,7 +38,7 @@ const RestockPage = () => {
   return (
     <Layout>
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-2xl font-bold text-gray-800 my-6">Restock</h1>
+        <h1 className="text-2xl font-bold text-[#0B1220] my-6">Restock</h1>
         <div className="flex flex-col md:flex-row gap-6">
           <CategorySidebar
             categories={categories}

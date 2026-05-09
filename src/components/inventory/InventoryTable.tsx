@@ -10,23 +10,23 @@ const InventoryTable = ({ items }: InventoryTableProps) => {
   return (
     <>
       {/* Desktop table */}
-      <table className="hidden md:table w-full text-sm bg-white rounded-lg shadow-sm">
+      <table className="hidden md:table w-full text-sm bg-white rounded-xl border border-[#E4E8EE] overflow-hidden">
         <thead>
-          <tr className="border-b text-left text-muted-foreground">
-            <th className="py-3 px-4 font-medium">Category</th>
-            <th className="py-3 px-4 font-medium">SKU</th>
-            <th className="py-3 px-4 font-medium">Name</th>
-            <th className="py-3 px-4 font-medium">Unit Size</th>
-            <th className="py-3 px-4 font-medium text-right">Reorder Point</th>
-            <th className="py-3 px-4 font-medium text-right">On Hand</th>
-            <th className="py-3 px-4 font-medium text-right">In Transit</th>
-            <th className="py-3 px-4 font-medium text-right">Min Order</th>
-            <th className="py-3 px-4 font-medium text-center">Status</th>
+          <tr className="border-b border-[#EEF2F7] text-left">
+            <th className="py-2.5 px-4 font-medium text-[#5B6470]">Category</th>
+            <th className="py-2.5 px-4 font-medium text-[#5B6470]">SKU</th>
+            <th className="py-2.5 px-4 font-medium text-[#5B6470]">Name</th>
+            <th className="py-2.5 px-4 font-medium text-[#5B6470]">Unit Size</th>
+            <th className="py-2.5 px-4 font-medium text-[#5B6470] text-right">Reorder Point</th>
+            <th className="py-2.5 px-4 font-medium text-[#5B6470] text-right">On Hand</th>
+            <th className="py-2.5 px-4 font-medium text-[#5B6470] text-right">In Transit</th>
+            <th className="py-2.5 px-4 font-medium text-[#5B6470] text-right">Min Order</th>
+            <th className="py-2.5 px-4 font-medium text-[#5B6470] text-center">Status</th>
           </tr>
         </thead>
         <tbody>
           {items.map((item) => (
-            <tr key={item.id} className="border-b even:bg-gray-50">
+            <tr key={item.id} className="border-b border-[#EEF2F7] even:bg-[#F9FAFC]">
               <td className="py-3 px-4">{item.category.name}</td>
               <td className="py-3 px-4 font-mono text-xs">{item.sku}</td>
               <td className="py-3 px-4 font-medium">{item.name}</td>

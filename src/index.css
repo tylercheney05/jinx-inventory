@@ -61,6 +61,7 @@
 
   body {
     margin: 0;
+    font-family: "Work Sans", "Helvetica", "Arial", sans-serif;
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-synthesis: none;

@@ -60,7 +60,7 @@ const InTransitCard = ({ log, item }: InTransitCardProps) => {
       <CardContent className="p-4 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
           <div>
-            <p className="font-semibold text-gray-800">
+            <p className="font-semibold text-[#0B1220]">
               {item ? item.name : `Item #${log.inventory_item}`}
             </p>
             {log.note && (
@@ -117,7 +117,7 @@ const InTransitPage = () => {
   return (
     <Layout>
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl font-bold text-gray-800 my-6">In Transit</h1>
+        <h1 className="text-2xl font-bold text-[#0B1220] my-6">In Transit</h1>
 
         {isLoading && <PageLoading />}
 

@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { Control } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -21,6 +22,46 @@ const formSchema = z.object({
 interface RestockFormProps {
   item: InventoryItem
   onSuccess: () => void
+}
+
+const NoteField = ({ control }: { control: Control<z.infer<typeof formSchema>> }) => {
+  const [showNote, setShowNote] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  return (
+    <FormField
+      control={control}
+      name="note"
+      render={({ field }) =>
+        showNote ? (
+          <FormItem>
+            <FormLabel>Note <span className="text-muted-foreground font-normal">(optional)</span></FormLabel>
+            <FormControl>
+              <Input
+                {...field}
+                ref={(el) => {
+                  field.ref(el)
+                  inputRef.current = el
+                }}
+                placeholder="Add a note..."
+                autoFocus
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        ) : (
+          <Button
+            type="button"
+            variant="ghost"
+            className="text-sm text-muted-foreground"
+            onClick={() => setShowNote(true)}
+          >
+            + Add a note
+          </Button>
+        )
+      }
+    />
+  )
 }
 
 const RestockForm = ({ item, onSuccess }: RestockFormProps) => {
@@ -101,19 +142,7 @@ const RestockForm = ({ item, onSuccess }: RestockFormProps) => {
           />
         </div>
 
-        <FormField
-          control={form.control}
-          name="note"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Note <span className="text-muted-foreground font-normal">(optional)</span></FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Add a note..." />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <NoteField control={form.control} />
 
         <Button
           type="submit"

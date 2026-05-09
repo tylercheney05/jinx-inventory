@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Settings, Menu } from 'lucide-react'
 import type { RootState } from '@/store'
@@ -19,6 +19,16 @@ const Navbar = () => {
   const isMobile = useIsMobile()
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const isActive = (path: string) => location.pathname === path
+
+  const linkClass = (path: string) =>
+    `text-sm font-medium px-3 py-1.5 rounded-md transition-colors ${
+      isActive(path)
+        ? 'bg-[#E8EFFD] text-jinxBlue font-semibold'
+        : 'text-jinxBlue hover:bg-[#EEF2F7]'
+    }`
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-white shadow-md z-50 h-14 flex items-center justify-between px-4">
@@ -30,16 +40,20 @@ const Navbar = () => {
           {isMobile ? (
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
-                <button className="p-2 rounded-md hover:bg-gray-100 transition-colors" aria-label="Open menu">
+                <button className="p-2 rounded-md hover:bg-[#EEF2F7] transition-colors" aria-label="Open menu">
                   <Menu className="text-jinxBlue" size={24} />
                 </button>
               </SheetTrigger>
               <SheetContent side="right" className="pt-12">
-                <nav className="flex flex-col gap-2">
+                <nav className="flex flex-col gap-1">
                   {navLinks.map((link) => (
                     <SheetClose key={link.to} asChild>
                       <button
-                        className="text-left text-base font-medium text-jinxBlue px-3 py-2 rounded-md hover:bg-gray-100 transition-colors"
+                        className={`text-left text-base px-3 py-2 rounded-md transition-colors ${
+                          isActive(link.to)
+                            ? 'bg-[#E8EFFD] text-jinxBlue font-semibold'
+                            : 'font-medium text-jinxBlue hover:bg-[#EEF2F7]'
+                        }`}
                         onClick={() => {
                           setOpen(false)
                           navigate(link.to)
@@ -53,32 +67,16 @@ const Navbar = () => {
               </SheetContent>
             </Sheet>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              <Link to="/inventory" className={linkClass('/inventory')}>Inventory</Link>
+              <Link to="/in-transit" className={linkClass('/in-transit')}>In Transit</Link>
+              <Link to="/restock" className={linkClass('/restock')}>Restock</Link>
+              <Link to="/removal" className={linkClass('/removal')}>Removal</Link>
               <Link
-                to="/inventory"
-                className="text-sm font-medium text-jinxBlue px-3 py-1 rounded-md hover:bg-gray-100 transition-colors"
+                to="/settings"
+                aria-label="Settings"
+                className={`p-2 rounded-md transition-colors ${isActive('/settings') ? 'bg-[#E8EFFD]' : 'hover:bg-[#EEF2F7]'}`}
               >
-                Inventory
-              </Link>
-              <Link
-                to="/in-transit"
-                className="text-sm font-medium text-jinxBlue px-3 py-1 rounded-md hover:bg-gray-100 transition-colors"
-              >
-                In Transit
-              </Link>
-              <Link
-                to="/restock"
-                className="text-sm font-medium text-jinxBlue px-3 py-1 rounded-md hover:bg-gray-100 transition-colors"
-              >
-                Restock
-              </Link>
-              <Link
-                to="/removal"
-                className="text-sm font-medium text-jinxBlue px-3 py-1 rounded-md hover:bg-gray-100 transition-colors"
-              >
-                Removal
-              </Link>
-              <Link to="/settings" aria-label="Settings" className="p-2 rounded-md hover:bg-gray-100 transition-colors">
                 <Settings className="text-jinxBlue" size={22} />
               </Link>
             </div>
