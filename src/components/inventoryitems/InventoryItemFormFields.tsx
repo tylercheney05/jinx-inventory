@@ -4,6 +4,7 @@ import { useGetInventoryCategoriesListQuery } from '@/services/inventoryCategori
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Switch } from '@/components/ui/switch'
 
 export const inventoryItemFormSchema = z.object({
   name: z.string().min(1, { message: 'Name is required' }),
@@ -14,6 +15,7 @@ export const inventoryItemFormSchema = z.object({
   reorder_point: z.coerce.number().int().positive({ message: 'Reorder point must be a positive integer' }),
   order_cost: z.coerce.number().positive({ message: 'Order cost must be a positive number' }),
   order_count: z.coerce.number().int().positive({ message: 'Order count must be a positive integer' }),
+  is_active: z.boolean().default(true),
 })
 
 export type InventoryItemFormValues = z.infer<typeof inventoryItemFormSchema>
@@ -172,6 +174,19 @@ const InventoryItemFormFields = ({ control }: InventoryItemFormFieldsProps) => {
           )}
         />
       </div>
+
+      <FormField
+        control={control}
+        name="is_active"
+        render={({ field }) => (
+          <FormItem className="flex items-center gap-3">
+            <FormControl>
+              <Switch checked={field.value} onCheckedChange={field.onChange} />
+            </FormControl>
+            <FormLabel className="!mt-0">Active</FormLabel>
+          </FormItem>
+        )}
+      />
     </>
   )
 }

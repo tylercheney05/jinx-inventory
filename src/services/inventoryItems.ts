@@ -23,8 +23,11 @@ export const inventoryItemsApi = createApi({
       }),
       invalidatesTags: ['InventoryItem'],
     }),
-    getInventoryItemsList: builder.query<InventoryItem[], void>({
-      query: () => '/inventory/items/',
+    getInventoryItemsList: builder.query<InventoryItem[], { is_active?: boolean } | undefined>({
+      query: (params) => ({
+        url: '/inventory/items/',
+        params,
+      }),
       providesTags: ['InventoryItem'],
     }),
   }),

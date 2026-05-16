@@ -14,6 +14,7 @@ export interface InventoryItem {
   in_transit_qty: number
   min_order_qty: number
   reorder_status: 'ok' | 'do_not_order' | 'ordered' | 'reorder' | null
+  is_active: boolean
 }
 
 export interface WriteableInventoryItem {
@@ -25,4 +26,5 @@ export interface WriteableInventoryItem {
   reorder_point: number
   order_cost: string
   order_count: number
+  is_active: boolean
 }

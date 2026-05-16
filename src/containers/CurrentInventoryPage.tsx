@@ -9,7 +9,7 @@ import { useGetInventoryCategoriesListQuery } from '@/services/inventoryCategori
 const CurrentInventoryPage = () => {
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<Set<number>>(new Set())
   const { data: categories = [] } = useGetInventoryCategoriesListQuery()
-  const { data: items = [], isLoading, isError } = useGetInventoryItemsListQuery(undefined, { refetchOnMountOrArgChange: true })
+  const { data: items = [], isLoading, isError } = useGetInventoryItemsListQuery({ is_active: true }, { refetchOnMountOrArgChange: true })
 
   const handleToggle = useCallback((id: number) => {
     setSelectedCategoryIds((prev) => {

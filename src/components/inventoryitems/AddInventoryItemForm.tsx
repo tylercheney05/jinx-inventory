@@ -22,6 +22,7 @@ const AddInventoryItemForm = () => {
       reorder_point: '' as unknown as number,
       order_cost: '' as unknown as number,
       order_count: '' as unknown as number,
+      is_active: true,
     },
   })
 

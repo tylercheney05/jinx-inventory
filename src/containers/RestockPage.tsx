@@ -12,7 +12,7 @@ const RestockPage = () => {
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null)
 
   const { data: categories = [] } = useGetInventoryCategoriesListQuery(undefined, { refetchOnMountOrArgChange: true })
-  const { data: items = [], isLoading, isError } = useGetInventoryItemsListQuery(undefined, { refetchOnMountOrArgChange: true })
+  const { data: items = [], isLoading, isError } = useGetInventoryItemsListQuery({ is_active: true }, { refetchOnMountOrArgChange: true })
 
   const handleToggle = useCallback((id: number) => {
     setSelectedCategoryIds((prev) => {

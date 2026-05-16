@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { CircleCheck, CircleX } from 'lucide-react'
 import { useGetInventoryItemsListQuery } from '@/services/inventoryItems'
 import ResourceList from '@/components/shared/ResourceList'
 import EditInventoryItemSheet from './EditInventoryItemSheet'
@@ -24,7 +25,13 @@ const InventoryItemList = () => {
             onClick={() => setSelectedItem(item)}
             className="w-full text-left grid grid-cols-2 sm:grid-cols-4 items-center gap-2 px-3 py-2 rounded-md border bg-white text-sm hover:bg-muted/50 transition-colors cursor-pointer"
           >
-            <span className="font-medium truncate">{item.name}</span>
+            <span className="font-medium truncate flex items-center gap-1.5">
+              {item.is_active
+                ? <span title="Active"><CircleCheck className="size-4 shrink-0 text-jinxGreen" /></span>
+                : <span title="Inactive"><CircleX className="size-4 shrink-0 text-jinxRed" /></span>
+              }
+              {item.name}
+            </span>
             <span className="text-muted-foreground truncate">{item.category.name}</span>
             <span className="text-muted-foreground">{item.sku}</span>
             <span className="text-muted-foreground">{item.unit_size} {item.uom}</span>

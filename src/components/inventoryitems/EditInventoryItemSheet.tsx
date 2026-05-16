@@ -46,6 +46,7 @@ const EditInventoryItemFormBody = ({ item, onSuccess }: EditInventoryItemFormBod
       reorder_point: item.reorder_point,
       order_cost: Number(item.order_cost),
       order_count: item.order_count,
+      is_active: item.is_active,
     },
   })
 
