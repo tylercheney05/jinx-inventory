@@ -16,7 +16,7 @@ export interface InventoryItem {
   reorder_status: 'ok' | 'do_not_order' | 'ordered' | 'reorder' | null
 }
 
-export interface CreateInventoryItem {
+export interface WriteableInventoryItem {
   name: string
   category: number
   sku: string
