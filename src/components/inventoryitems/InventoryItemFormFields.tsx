@@ -1,17 +1,29 @@
-import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
+import { z } from 'zod'
 import { useGetInventoryCategoriesListQuery } from '@/services/inventoryCategories'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
-interface InventoryItemFormFieldsProps<T extends FieldValues> {
+export const inventoryItemFormSchema = z.object({
+  name: z.string().min(1, { message: 'Name is required' }),
+  category: z.number({ message: 'Category is required' }),
+  sku: z.string().min(1, { message: 'SKU is required' }),
+  unit_size: z.coerce.number().int().positive({ message: 'Unit size must be a positive integer' }),
+  uom: z.string().min(1, { message: 'Unit of measure is required' }),
+  reorder_point: z.coerce.number().int().positive({ message: 'Reorder point must be a positive integer' }),
+  order_cost: z.coerce.number().positive({ message: 'Order cost must be a positive number' }),
+  order_count: z.coerce.number().int().positive({ message: 'Order count must be a positive integer' }),
+})
+
+export type InventoryItemFormValues = z.infer<typeof inventoryItemFormSchema>
+
+interface InventoryItemFormFieldsProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  control: Control<T, any, any>
+  control: any
 }
 
-const InventoryItemFormFields = <T extends FieldValues>({
-  control,
-}: InventoryItemFormFieldsProps<T>) => {
+const InventoryItemFormFields = ({ control }: InventoryItemFormFieldsProps) => {
   const { data: categories } = useGetInventoryCategoriesListQuery(undefined, {
     refetchOnMountOrArgChange: true,
   })
@@ -21,7 +33,7 @@ const InventoryItemFormFields = <T extends FieldValues>({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <FormField
           control={control}
-          name={'name' as Path<T>}
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Name</FormLabel>
@@ -34,7 +46,7 @@ const InventoryItemFormFields = <T extends FieldValues>({
         />
         <FormField
           control={control}
-          name={'sku' as Path<T>}
+          name="sku"
           render={({ field }) => (
             <FormItem>
               <FormLabel>SKU</FormLabel>
@@ -50,7 +62,7 @@ const InventoryItemFormFields = <T extends FieldValues>({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Controller
           control={control}
-          name={'category' as Path<T>}
+          name="category"
           render={({ field, fieldState }) => (
             <FormItem>
               <FormLabel>Category</FormLabel>
@@ -79,7 +91,7 @@ const InventoryItemFormFields = <T extends FieldValues>({
         />
         <Controller
           control={control}
-          name={'uom' as Path<T>}
+          name="uom"
           render={({ field, fieldState }) => (
             <FormItem>
               <FormLabel>Unit of Measure</FormLabel>
@@ -109,7 +121,7 @@ const InventoryItemFormFields = <T extends FieldValues>({
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <FormField
           control={control}
-          name={'unit_size' as Path<T>}
+          name="unit_size"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Unit Size</FormLabel>
@@ -122,7 +134,7 @@ const InventoryItemFormFields = <T extends FieldValues>({
         />
         <FormField
           control={control}
-          name={'reorder_point' as Path<T>}
+          name="reorder_point"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Reorder Point</FormLabel>
@@ -135,7 +147,7 @@ const InventoryItemFormFields = <T extends FieldValues>({
         />
         <FormField
           control={control}
-          name={'order_cost' as Path<T>}
+          name="order_cost"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Order Cost ($)</FormLabel>
@@ -148,7 +160,7 @@ const InventoryItemFormFields = <T extends FieldValues>({
         />
         <FormField
           control={control}
-          name={'order_count' as Path<T>}
+          name="order_count"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Order Count</FormLabel>

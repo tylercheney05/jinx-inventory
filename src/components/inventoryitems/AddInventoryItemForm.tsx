@@ -1,27 +1,18 @@
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useCreateInventoryItemMutation } from '@/services/inventoryItems'
 import AddForm from '@/components/shared/AddForm'
-import InventoryItemFormFields from './InventoryItemFormFields'
-
-const formSchema = z.object({
-  name: z.string().min(1, { message: 'Name is required' }),
-  category: z.number({ message: 'Category is required' }),
-  sku: z.string().min(1, { message: 'SKU is required' }),
-  unit_size: z.coerce.number().int().positive({ message: 'Unit size must be a positive integer' }),
-  uom: z.string().min(1, { message: 'Unit of measure is required' }),
-  reorder_point: z.coerce.number().int().positive({ message: 'Reorder point must be a positive integer' }),
-  order_cost: z.coerce.number().positive({ message: 'Order cost must be a positive number' }),
-  order_count: z.coerce.number().int().positive({ message: 'Order count must be a positive integer' }),
-})
+import InventoryItemFormFields, {
+  inventoryItemFormSchema,
+  type InventoryItemFormValues,
+} from './InventoryItemFormFields'
 
 const AddInventoryItemForm = () => {
   const [createInventoryItem, result] = useCreateInventoryItemMutation()
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<InventoryItemFormValues>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(formSchema) as any,
+    resolver: zodResolver(inventoryItemFormSchema) as any,
     defaultValues: {
       name: '',
       category: undefined,
@@ -34,7 +25,7 @@ const AddInventoryItemForm = () => {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: InventoryItemFormValues) {
     createInventoryItem({ ...values, order_cost: String(values.order_cost) })
   }
 

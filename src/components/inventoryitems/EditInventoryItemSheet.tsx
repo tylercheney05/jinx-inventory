@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'react-toastify'
 import { useUpdateInventoryItemMutation } from '@/services/inventoryItems'
@@ -9,20 +8,10 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { LoadingIcon } from '@/components/Icons'
 import type { InventoryItem } from '@/types/inventoryItems'
-import InventoryItemFormFields from './InventoryItemFormFields'
-
-const formSchema = z.object({
-  name: z.string().min(1, { message: 'Name is required' }),
-  category: z.number({ message: 'Category is required' }),
-  sku: z.string().min(1, { message: 'SKU is required' }),
-  unit_size: z.coerce.number().int().positive({ message: 'Unit size must be a positive integer' }),
-  uom: z.string().min(1, { message: 'Unit of measure is required' }),
-  reorder_point: z.coerce.number().int().positive({ message: 'Reorder point must be a positive integer' }),
-  order_cost: z.coerce.number().positive({ message: 'Order cost must be a positive number' }),
-  order_count: z.coerce.number().int().positive({ message: 'Order count must be a positive integer' }),
-})
-
-type FormValues = z.infer<typeof formSchema>
+import InventoryItemFormFields, {
+  inventoryItemFormSchema,
+  type InventoryItemFormValues,
+} from './InventoryItemFormFields'
 
 interface EditInventoryItemSheetProps {
   item: InventoryItem | null
@@ -45,9 +34,9 @@ interface EditInventoryItemFormBodyProps {
 const EditInventoryItemFormBody = ({ item, onSuccess }: EditInventoryItemFormBodyProps) => {
   const [updateInventoryItem, result] = useUpdateInventoryItemMutation()
 
-  const form = useForm<FormValues>({
+  const form = useForm<InventoryItemFormValues>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    resolver: zodResolver(formSchema) as any,
+    resolver: zodResolver(inventoryItemFormSchema) as any,
     defaultValues: {
       name: item.name,
       category: item.category.id,
@@ -70,7 +59,7 @@ const EditInventoryItemFormBody = ({ item, onSuccess }: EditInventoryItemFormBod
     }
   }, [result.isSuccess, result.isError])
 
-  function onSubmit(values: FormValues) {
+  function onSubmit(values: InventoryItemFormValues) {
     updateInventoryItem({ id: item.id, ...values, order_cost: String(values.order_cost) })
   }
 
