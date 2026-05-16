@@ -8,8 +8,7 @@ import { checkAuth } from '@/features/user'
 import LoginPage from '@/containers/LoginPage'
 import HomePage from '@/containers/HomePage'
 import SettingsPage from '@/containers/SettingsPage'
-import RestockPage from '@/containers/RestockPage'
-import RemovalPage from '@/containers/RemovalPage'
+import LogPage from '@/containers/LogPage'
 import InTransitPage from '@/containers/InTransitPage'
 import CurrentInventoryPage from '@/containers/CurrentInventoryPage'
 import ProtectedRoute from '@/components/routes/ProtectedRoute'
@@ -59,18 +58,10 @@ const App = () => {
           }
         />
         <Route
-          path="/restock"
+          path="/log"
           element={
             <ProtectedRoute>
-              <RestockPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/removal"
-          element={
-            <ProtectedRoute>
-              <RemovalPage />
+              <LogPage />
             </ProtectedRoute>
           }
         />

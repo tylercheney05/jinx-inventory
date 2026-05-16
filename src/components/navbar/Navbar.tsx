@@ -9,8 +9,7 @@ import { Sheet, SheetTrigger, SheetContent, SheetClose } from '@/components/ui/s
 const navLinks = [
   { to: '/inventory', label: 'Inventory' },
   { to: '/in-transit', label: 'In Transit' },
-  { to: '/restock', label: 'Restock' },
-  { to: '/removal', label: 'Removal' },
+  { to: '/log', label: 'Log' },
   { to: '/settings', label: 'Settings' },
 ]
 
@@ -70,8 +69,7 @@ const Navbar = () => {
             <div className="flex items-center gap-1">
               <Link to="/inventory" className={linkClass('/inventory')}>Inventory</Link>
               <Link to="/in-transit" className={linkClass('/in-transit')}>In Transit</Link>
-              <Link to="/restock" className={linkClass('/restock')}>Restock</Link>
-              <Link to="/removal" className={linkClass('/removal')}>Removal</Link>
+              <Link to="/log" className={linkClass('/log')}>Log</Link>
               <Link
                 to="/settings"
                 aria-label="Settings"
