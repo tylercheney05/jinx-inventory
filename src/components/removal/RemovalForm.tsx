@@ -11,6 +11,11 @@ import { LoadingIcon } from '@/components/Icons'
 import QuantityField from '@/components/shared/QuantityField'
 import type { InventoryItem } from '@/types/inventoryItems'
 
+const todayLocalDate = () => {
+  const d = new Date()
+  return [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-')
+}
+
 const formSchema = z.object({
   quantity: z.coerce.number().int().positive({ message: 'Quantity must be a positive integer' }),
   purchase_date: z.string().min(1, { message: 'Removal date is required' }),
@@ -30,7 +35,7 @@ const RemovalForm = ({ item, onSuccess }: RemovalFormProps) => {
     resolver: zodResolver(formSchema) as any,
     defaultValues: {
       quantity: 1,
-      purchase_date: new Date().toISOString().slice(0, 10),
+      purchase_date: todayLocalDate(),
       note: '',
     },
   })
@@ -50,7 +55,7 @@ const RemovalForm = ({ item, onSuccess }: RemovalFormProps) => {
       toast.success('Removal logged successfully!')
       form.reset({
         quantity: 1,
-        purchase_date: new Date().toISOString().slice(0, 10),
+        purchase_date: todayLocalDate(),
         note: '',
       })
       onSuccess()
