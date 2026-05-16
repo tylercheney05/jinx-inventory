@@ -110,7 +110,7 @@ const InTransitCard = ({ log, item }: InTransitCardProps) => {
 
 const InTransitPage = () => {
   const { data: logs = [], isLoading, isError } = useGetInventoryLogsListQuery({ received_date__isnull: true }, { refetchOnMountOrArgChange: true })
-  const { data: items = [] } = useGetInventoryItemsListQuery()
+  const { data: items = [] } = useGetInventoryItemsListQuery(undefined)
 
   const itemMap = new Map(items.map((item) => [item.id, item]))
 
